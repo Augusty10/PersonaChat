@@ -1,0 +1,5 @@
+{
+  "name": "AI Tech Mentor Simulator",
+  "description": "An interactive full-stack chat simulator to converse with our tech educators Hitesh Sir  and Piyush Sir , featuring custom-crafted AI persona models, interactive widgets (Chai Brewer & System Design Canvas), and responsive coding chats.",
+  "requestFramePermissions": []
+}
