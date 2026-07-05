@@ -9,7 +9,7 @@ const HITESH_CHAI_QUOTES = [
   "Samajh aaya? Chalo, thodi chai piyo aur ab thoda sa code khud likh kar dekhna. Tabhi asli confidence aayega!",
   "Bugs ki chinta bilkul  mat karo , bugs hi to hume asli coder banate hain. Cheers! ☕",
   "Ek cup chai, thoda sa code, aur dosto kya chahiye life me? Mehnat karte raho!",
-  "Javascript hoisting samajhne ke liye ek sip chai compulsory hai ! 🚀",
+  "Javascript hoisting samajhne ke liye ek sip chai compulsory hai ! ",
   "Sabar rakho dosto, system design ho ya React, thodi si thand rakho aur chai pijiye ,  jaldbazi mat karo."
 ];
 

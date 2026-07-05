@@ -111,7 +111,7 @@ app.post("/api/chat", async (req, res) => {
     }
 
     if (!process.env.API_KEY) {
-      return res.status(500).json({ error: "OpenAI API key is not configured on the server." });
+      return res.status(500).json({ error: " API key is not configured on the server." });
     }
 
     const systemInstruction = persona === "hitesh" ? HITESH_PROMPT : PIYUSH_PROMPT;
