@@ -123,14 +123,15 @@ app.post("/api/chat", async (req, res) => {
     }));
 
     // Call OpenAI API
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini", 
-      messages: [
-        { role: "system", content: systemInstruction },
-        ...openaiMessages,
-      ],
-      temperature: 0.75,
-    });
+const response = await openai.chat.completions.create({
+  model: "gpt-4o-mini",
+  messages: [
+    { role: "system", content: systemInstruction },
+    ...openaiMessages.slice(-8), // only keep last 8 messages (sliding window)
+  ],
+  temperature: 0.75,
+  max_tokens: 400, // cap the response length
+});
 
     const replyText = response.choices[0]?.message?.content || "My Bad! Kuch network issue ho gaya lagta hai. Let's try again!";
 
