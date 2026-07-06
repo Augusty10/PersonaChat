@@ -10,10 +10,6 @@ dotenv.config();
 const app = express();
 const PORT = 3000;
 
-const openai = new OpenAI({
-  apiKey: process.env.API_KEY,
-});
-
 // JSON body parser
 app.use(express.json());
 
@@ -102,6 +98,7 @@ app.get("/api/health", (req, res) => {
 });
 
 // Chat API endpoint
+
 app.post("/api/chat", async (req, res) => {
   try {
     const { persona, messages } = req.body;
@@ -110,28 +107,28 @@ app.post("/api/chat", async (req, res) => {
       return res.status(400).json({ error: "Invalid request payload. 'persona' and 'messages' array are required." });
     }
 
-    if (!process.env.API_KEY) {
-      return res.status(500).json({ error: " API key is not configured on the server." });
+    if (!process.env.OPENAI_API_KEY) {
+      return res.status(500).json({ error: "API key is not configured on the server." });
     }
+
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
     const systemInstruction = persona === "hitesh" ? HITESH_PROMPT : PIYUSH_PROMPT;
 
-   
     const openaiMessages = messages.map(msg => ({
       role: msg.sender === 'user' ? 'user' : 'assistant',
       content: msg.text
     }));
 
-    // Call OpenAI API
-const response = await openai.chat.completions.create({
-  model: "gpt-4o-mini",
-  messages: [
-    { role: "system", content: systemInstruction },
-    ...openaiMessages.slice(-8), // only keep last 8 messages (sliding window)
-  ],
-  temperature: 0.75,
-  max_tokens: 400, // cap the response length
-});
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "system", content: systemInstruction },
+        ...openaiMessages.slice(-8),
+      ],
+      temperature: 0.75,
+      max_tokens: 400,
+    });
 
     const replyText = response.choices[0]?.message?.content || "My Bad! Kuch network issue ho gaya lagta hai. Let's try again!";
 
@@ -145,7 +142,6 @@ const response = await openai.chat.completions.create({
     });
   }
 });
-
 
 
 async function setupViteServer() {
